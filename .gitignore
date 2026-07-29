@@ -45,3 +45,7 @@ backend/venv/
 
 # Docker
 *.tar
+
+
+# Agent skills (vendored copies for Claude Code — reproducible via skills-lock.json)
+.claude/
