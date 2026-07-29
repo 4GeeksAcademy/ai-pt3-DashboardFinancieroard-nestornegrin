@@ -2,6 +2,20 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* accessibility skill (addyosmani/web-quality-skills): respect the user's
+   reduced-motion preference instead of forcing hover transitions and the
+   loading skeleton's pulse animation on everyone. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 :root {
   --background: oklch(0.97 0.005 240);
   --foreground: oklch(0.15 0.01 240);

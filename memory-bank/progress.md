@@ -117,3 +117,35 @@ cablea sus tokens de color — no un patrón general de React.
 - `src/assets/hero.png` (44KB) no se referencia en ningún componente —
   candidato a limpieza en una sesión futura, fuera del alcance de "mejora
   dirigida" de esta tarea.
+
+## Corrección posterior — la skill "accessibility" sí existe
+
+Al pedir verificación cruzada, se corrió `npx skills find accessibility` desde
+un entorno con acceso real a internet (Codespace del usuario, no este
+sandbox). Resultado real: **sí existe** una skill llamada exactamente
+`accessibility` — `addyosmani/web-quality-skills@accessibility` (40K
+instalaciones, top resultado). La conclusión anterior ("no existe ninguna
+skill con ese nombre exacto") era incorrecta — reflejaba una limitación de
+red de este sandbox, no la realidad del ecosistema. Se corrige aquí en vez
+de dejarlo sin señalar.
+
+Se instaló y revisó el SKILL.md real (WCAG 2.2, principios POUR). Comparado
+contra lo ya aplicado con `web-design-guidelines`:
+
+- Alt text, contraste, teclado, ARIA-en-divs, idioma de página: ya cubiertos
+  correctamente, coinciden con esta skill real.
+- **Dos gaps genuinos encontrados y corregidos:**
+  - **Motion (2.3):** no se respetaba `prefers-reduced-motion` — el pulso del
+    `Skeleton` y la transición de hover en `KPICard` corrían siempre. Se
+    agregó el media query estándar en `index.css` (mismo patrón que muestra
+    la skill) para desactivar animaciones/transiciones cuando el usuario
+    prefiere movimiento reducido.
+  - **Live regions / errores (4.1.3, 3.3.1):** el banner de error en
+    `App.tsx` se insertaba sin anunciarse a lectores de pantalla. Se agregó
+    `role="alert"` para que sea una región viva asertiva.
+- Confirmado no aplicable a este dashboard (sin formularios, sin navegación,
+  sin login, sin video/audio, sin drag): skip links, form labels,
+  autenticación accesible, tamaño de objetivo táctil, timing.
+
+`npm run build` y `npx vitest run` (5/5) verificados de nuevo tras estos
+dos cambios — sin regresiones.

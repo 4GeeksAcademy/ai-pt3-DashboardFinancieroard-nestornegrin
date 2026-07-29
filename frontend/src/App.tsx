@@ -80,7 +80,14 @@ function App() {
           <DashboardHeader period="2024 - Full Year" />
 
           {error ? (
-            <div className="rounded-lg border border-destructive/30 bg-destructive/10 p-4 text-sm text-destructive-foreground">
+            // accessibility skill (addyosmani/web-quality-skills): role="alert"
+            // makes this an assertive live region so screen readers announce
+            // the error as soon as it's inserted, instead of it silently
+            // appearing with no notification.
+            <div
+              role="alert"
+              className="rounded-lg border border-destructive/30 bg-destructive/10 p-4 text-sm text-destructive-foreground"
+            >
               {error}
             </div>
           ) : null}
