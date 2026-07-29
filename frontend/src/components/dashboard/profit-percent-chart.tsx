@@ -77,7 +77,18 @@ export function ProfitPercentChart({ data, loading }: ProfitPercentChartProps) {
           </div>
         ) : (
           <ResponsiveContainer width="100%" height={280}>
-            <LineChart data={data} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
+            {/*
+              accessibilityLayer (skill: accessibility / web-design-guidelines):
+              enables keyboard navigation (Tab focuses the chart, arrow keys move
+              between data points) and auto-generated ARIA descriptions per point.
+              Recharts 3.x defaults this to true; kept explicit so it documents
+              intent and can't be silently disabled by a future dependency bump.
+            */}
+            <LineChart
+              data={data}
+              margin={{ top: 4, right: 8, left: 0, bottom: 0 }}
+              accessibilityLayer
+            >
               <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" strokeOpacity={0.6} />
               <XAxis
                 dataKey="month"
